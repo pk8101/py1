@@ -2,7 +2,7 @@
 # 1.Edgelist->two list are there one for vertices and one for edges
 # 2.adjecencylist->it can be written using dict
 # 3.adjacencymatrix-> every thing will be written in matrix
-
+import queue
 class Graph:
     def __init__(self,nVertices):
         self.nVertices=nVertices
@@ -29,6 +29,21 @@ class Graph:
         visited=[False for i in range(self.nVertices)]
         self.__dfsHelper(sV,visited)
     
+    def bfs(self,sV):
+        q=queue.Queue()
+        q.put(sV)
+        visited=[False for i in range(self.nVertices)]
+        visited[sV]=True
+        while q.empty() is False:
+            u=q.get()
+            print(u)
+            for j in range(self.nVertices):
+                if self.adjacencyMatrix[u][j]>0 and visited[j] is False:
+                    q.put(j)
+                    visited[j]=True
+                    
+        
+        
     def __str__(self) :
         return str(self.adjacencyMatrix)
         
@@ -39,4 +54,6 @@ g.addEdge(3,4)
 g.addEdge(1,3)
 g.addEdge(2,4)
 g.dfs(0)
+print()
+g.bfs(0)
 print(g)
