@@ -18,6 +18,16 @@ class Graph:
         self.adjacencyMatrix[v2][v1]=0
     def containEdge(self,v1,v2):
         return True if self.adjacencyMatrix[v1][v2]>0 else False
+    def __dfsHelper(self,sV,visited):
+        print(sV)
+        visited[sV]=True
+        for i in range(self.nVertices):
+            if (self.adjacencyMatrix[sV][i]>0 and visited[i] is False):
+                self.__dfsHelper(i,visited)
+                
+    def dfs(self,sV):
+        visited=[False for i in range(self.nVertices)]
+        self.__dfsHelper(sV,visited)
     
     def __str__(self) :
         return str(self.adjacencyMatrix)
@@ -28,4 +38,5 @@ g.addEdge(1,2)
 g.addEdge(3,4)
 g.addEdge(1,3)
 g.addEdge(2,4)
+g.dfs(0)
 print(g)
