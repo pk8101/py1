@@ -28,5 +28,38 @@ class PriorityQueue:
         self.pq.append(pqNode)
         self.insertup()
     
+    def removeDown(self):
+        parentIndex=0
+        leftIndex=2*parentIndex+1
+        rightIndex=2*parentIndex+2
+        while leftIndex<self.getSize():
+            minIndex=parentIndex
+            if self.pq[minIndex].priority>self.pq[leftIndex].priority:
+                minIndex=leftIndex
+            if rightIndex<self.getSize() and self.pq[minIndex].priority>self.pq[rightIndex].priority:
+                minIndex=rightIndex
+            
+            if minIndex==parentIndex:
+                break
+            self.pq[parentIndex],self.pq[minIndex]=self.pq[minIndex],self.pq[parentIndex]
+            parentIndex=minIndex
+            leftIndex=2*parentIndex+1
+            rightIndex=2*parentIndex+2
+        
     def removeMin(self):
-        pass
+        if self.isEmpty():
+            return None
+        ele=self.pq[0].value
+        self.pq[0]=self.pq[self.getSize()-1]
+        self.pq.pop()
+        self.removeDown()
+        return ele
+    
+pq=PriorityQueue()
+pq.insert('A',10)
+pq.insert('C',5)
+pq.insert('B',19)
+pq.insert('D',4)
+
+for _ in range(pq.getSize()):
+    print(pq.removeMin())
