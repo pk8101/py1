@@ -90,3 +90,19 @@ n2=41
 dp=[-1 for i in range(n2+1)]
 ans4=minSquares(n2,dp)
 print(ans4)
+
+#min squares problem in iterative solution
+def minSquaresI(n):
+    dp=[-1 for i in range(n+1)]
+    dp[0]=0
+    for i in range(1,n+1):
+        ans=sys.maxsize
+        root=int(math.sqrt(i))
+        for j in range(1,root+1):
+            curr=1+dp[i-(j**2)]
+            ans=min(curr,ans)
+        dp[i]=ans
+    return dp[n]
+n3=41
+ans5=minSquaresI(n3)
+print(ans5)
