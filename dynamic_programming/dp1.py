@@ -1,6 +1,7 @@
 # solving fib using dp
-import sys
+import sys ,math
 sys.setrecursionlimit(100000)
+
 def fib(n,dp):
     if n==0 or n==1:
         return n
@@ -66,3 +67,26 @@ n1=90
 dp=[-1 for i in range(n1+1)]
 ans3=minSteps(n1,dp)
 print(ans3)
+
+# solve minimum squares for N using dp
+def minSquares(n,dp):
+    if n==0:
+        return 0
+    
+    ans=sys.maxsize
+    root=int(math.sqrt(n))
+    for i in range(1,root+1):
+        newCheck=n-(i**2)
+        if dp[newCheck]==-1:
+            smallans=minSquares(newCheck,dp)
+            dp[newCheck]=smallans
+            current=1+smallans
+        else:
+            current=1+dp[newCheck]
+        ans=min(ans,current)
+    return ans
+
+n2=41
+dp=[-1 for i in range(n2+1)]
+ans4=minSquares(n2,dp)
+print(ans4)
